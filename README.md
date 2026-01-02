@@ -98,25 +98,75 @@ Note that these elements are disabled by default and can be enabled in plugin se
 
 Code blocks with a single number in it (e.g. `` `5` ``) will be rendered with - and + buttons for quick adjustment.
 
-#### Progress trackers
+- Click + or - to adjust by 1
+- Shift+click or right-click +/- to adjust by 10
+- Click the value to edit the code directly
 
-Code blocks with two numbers separated by a slash (e.g. `` `1/5` ``) will be rendered as a set of checkable boxes or as a clock. Useful for PbtA-style clocks and general progress tracking.
+#### Progress trackers with limits
 
-To use specific tracker style:
+Code blocks with two numbers separated by a slash (e.g. `` `1/5` ``) will be rendered as a counter showing current value and maximum with +/- buttons for adjustment.
+
+- Click + or - to adjust the current value
+- Shift+click or right-click +/- to adjust the maximum value
+- Right-click the value for more options (reset, drain, convert to clock/boxes)
+
+#### Progress trackers (boxes and clocks)
+
+Code blocks with a tracker type and value (e.g. `` `boxes: 1/5` ``) will be rendered as a set of clickable boxes or as a clock. Useful for PbtA-style clocks and general progress tracking.
+
+Basic syntax:
 - Boxes — `` `boxes: 1/5` `` or `` `b:1/5` ``
+- Circles — `` `circles: 1/5` ``
 - Clock — `` `clock: 1/5` `` or `` `c:1/5` ``
-- Smaller clock — `` `smclock: 1/5` `` or `` `sc:1/5` ``
-- Larger clock — `` `lgclock: 1/5` `` or `` `lc:1/5` ``
+
+Size variants:
+- Small — `` `smboxes: 1/5` `` or `` `s` `` prefix
+- Large — `` `lgboxes: 1/5` `` or `` `l` `` prefix
+- Custom size — `` `boxes,30: 1/5` `` (size in pixels)
+
+Additional options:
+- Color — `` `boxes,red: 1/5` `` or `` `boxes,#fb464c: 1/5` ``
+- Available colors: red, orange, yellow, green, cyan, blue, purple, pink
+- Multiple parameters — `` `boxes,40,red: 1/5` `` (custom size + color)
+- Alternative separator — `` `boxes|red: 1/5` `` (pipe instead of comma)
+
+Clocks support up to 16 segments, boxes support up to 200 segments.
+
+Interaction:
+- Click a box/segment to set progress to that position
+- Right-click for menu options (fill, reset, change color, size, shape)
 
 #### Dice
 
 Code block with dice notation (e.g. `` `d6` `` or `` `2d8` ``) will be rendered as a dice button that can be rolled by clicking on it.
 
-To change a die color — `` `d6,red` `` or `` `d6,#fb464c` ``
+Supported dice: d4, d6, d8, d10, d12, d20, d100, dF (Fudge/Fate dice: -1, 0, +1)
+
+Basic syntax:
+- Single die — `` `d6` ``
+- Multiple dice — `` `2d8` ``
+- Modifier — `` `d20+5` `` or `` `2d6-2` ``
+
+Size variants:
+- Small — `` `smd6` `` or `` `sd6` ``
+- Large — `` `lgd6` `` or `` `ld6` ``
+- Custom size — `` `d6,30` `` (size in pixels)
+
+Additional options:
+- Color — `` `d6,red` `` or `` `d6,#fb464c` ``
+- Available colors: red, orange, yellow, green, cyan, blue, purple, pink
+- Show dice notation — `` `d6,show` `` displays "d6 = " before result
+- Lock/disable — `` `!d6` `` prevents rolling (useful for fixed values)
+- Multiple parameters — `` `d20,red,40,show` `` (multiple options)
+- Alternative separator — `` `d6|red` `` (pipe instead of comma)
+
+The dice will show the last rolled value. Click to roll with animation. Right-click for menu options (roll, color, size, lock/unlock).
 
 #### Tab stops
 
 Code blocks with only spaces (e.g. `` ` ` ``) will be rendered as a blank space with a set width. Useful when you need a table-like formatting without an actual table.
+
+The width adjusts based on the number of spaces. You can also resize by dragging the edges.
 
 Example of formatted stats with dynamic counters:
 
