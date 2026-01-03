@@ -5,9 +5,11 @@ This directory contains comprehensive documentation for Solo RPG Toolkit develop
 ## 📚 Documentation Files
 
 ### [CODEBASE_SUMMARY.md](CODEBASE_SUMMARY.md)
+
 **Start here!** High-level overview of the entire codebase.
 
 **Contents:**
+
 - Repository structure
 - Architecture overview
 - Three-layer inline element system
@@ -20,9 +22,11 @@ This directory contains comprehensive documentation for Solo RPG Toolkit develop
 ---
 
 ### [STAT_DIE_TRACKER_DESIGN.md](STAT_DIE_TRACKER_DESIGN.md)
+
 Complete feature specification for the proposed Stat Die Tracker inline element.
 
 **Contents:**
+
 - Use case analysis
 - Syntax design and rationale
 - Parsing rules and regex patterns
@@ -40,9 +44,11 @@ Complete feature specification for the proposed Stat Die Tracker inline element.
 ---
 
 ### [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md)
+
 Step-by-step implementation guide for the Stat Die Tracker.
 
 **Contents:**
+
 - Phased approach (8 PRs/commits)
 - Detailed implementation steps per phase
 - Testing checklists
@@ -60,9 +66,11 @@ Step-by-step implementation guide for the Stat Die Tracker.
 ## 📖 Other Documentation
 
 ### [../CONTRIBUTING.md](../CONTRIBUTING.md)
+
 Developer guide for contributing to the project.
 
 **Contents:**
+
 - Getting started (setup, build, deploy)
 - Complete architecture explanation
 - Step-by-step: "How to Add a New Inline Element"
@@ -75,9 +83,11 @@ Developer guide for contributing to the project.
 ---
 
 ### [../README.md](../README.md)
+
 User-facing documentation for plugin features.
 
 **Contents:**
+
 - Feature overview
 - Inline elements documentation
 - Installation instructions
@@ -89,7 +99,7 @@ User-facing documentation for plugin features.
 
 ## 🎯 Quick Navigation
 
-### I want to...
+### I want to
 
 **...understand the codebase**
 → Start with [CODEBASE_SUMMARY.md](CODEBASE_SUMMARY.md)
@@ -192,7 +202,7 @@ npm run deploy       # Prepare for installation
 ## 📧 Contact
 
 - **Issues:** [GitHub Issues](https://github.com/Newman5/solo-toolkit/issues)
-- **Email:** kurowski.dev@gmail.com (original author)
+- **Email:** <kurowski.dev@gmail.com> (original author)
 
 ---
 

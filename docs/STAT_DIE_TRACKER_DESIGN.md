@@ -14,16 +14,18 @@ The Stat Die Tracker is a new inline element that combines the functionality of 
 
 ### Final Recommended Syntax
 
-```
+```text
 `sd[SIZE]: [VALUE]`
 ```
 
 Where:
+
 - `sd` = "stat die" prefix (distinguishes from regular dice)
 - `[SIZE]` = die size (4, 6, 8, 10, 12, 20)
 - `[VALUE]` = current value (1 to SIZE)
 
 **Basic Examples:**
+
 ```markdown
 `sd6: 3`    - d6 stat, current value 3
 `sd8: 5`    - d8 stat, current value 5
@@ -34,11 +36,12 @@ Where:
 
 Optional color parameter (consistent with existing dice notation):
 
-```
+```markdown
 `sd[SIZE],[COLOR]: [VALUE]`
 ```
 
 **Examples:**
+
 ```markdown
 `sd6,red: 3`       - Red colored d6 stat die
 `sd8,#fb464c: 5`   - Custom hex color
@@ -48,17 +51,20 @@ Optional color parameter (consistent with existing dice notation):
 ### Syntax Decision Rationale
 
 **Why `sd` prefix?**
+
 - Short and mnemonic ("stat die")
 - Avoids conflict with regular dice (`d6`)
 - Avoids conflict with counters (`5`)
 - Follows similar pattern to sized clocks (`smclock`, `lgclock`)
 
 **Why colon separator?**
+
 - Consistent with existing inline elements (`clock: 1/5`, `boxes: 2/4`)
 - Visually distinguishes die size from current value
 - Reads naturally: "stat die 6, value 3"
 
 **Alternative syntaxes considered:**
+
 - `d6:3` - Too similar to regular dice with results (`d6: 4`)
 - `sd(6): 3` - Unnecessary parentheses, more verbose
 - `s6: 3` - Less clear, harder to understand at a glance
@@ -73,6 +79,7 @@ Optional color parameter (consistent with existing dice notation):
 ```
 
 **Pattern breakdown:**
+
 - `^` and `$` - Match entire code block
 - `` ` `` - Backticks (code block markers)
 - `sd` - Literal prefix
@@ -138,6 +145,7 @@ Optional color parameter (consistent with existing dice notation):
 ```
 
 **Components:**
+
 1. **Die Button** - Shows die size, clickable to roll
 2. **Minus Button** - Decrease value by 1
 3. **Value Display** - Current value, clickable to edit code
@@ -146,6 +154,7 @@ Optional color parameter (consistent with existing dice notation):
 ### Color Application
 
 When a color is specified:
+
 - Apply color to die button text
 - Apply color as border/outline to die button
 - Keep consistent with existing dice color system
@@ -198,6 +207,7 @@ Edit
 2. Update DOM to reflect new state
 3. Call `onChange()` callback
 4. In `onChange()`, dispatch document change:
+
    ```typescript
    view.dispatch({
      changes: [{
@@ -209,6 +219,7 @@ Edit
    ```
 
 **Example flow:**
+
 ```
 User clicks plus button
 → value changes from 3 to 4
@@ -226,6 +237,7 @@ User clicks plus button
 2. Update DOM to reflect new state
 3. Call `onChange()` callback
 4. In `onChange()`, use `replaceInFile()`:
+
    ```typescript
    replaceInFile({
      vault: this.app.vault,
@@ -239,6 +251,7 @@ User clicks plus button
    ```
 
 **Example flow:**
+
 ```
 User clicks die button
 → roll() generates new value (e.g., 1-6)
@@ -265,11 +278,13 @@ Each widget knows its position and only updates its own occurrence.
 ### 1. Multiple Stat Dice on One Line
 
 **Scenario:**
+
 ```markdown
 Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 ```
 
 **Solution:**
+
 - Live Preview: Each widget has unique syntax node position
 - Reading Mode: Use `replaceIndex` to target specific occurrence
 - Test: Clicking any widget only updates that widget
@@ -279,6 +294,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 **Scenario:** User manually edits to `sd6: 99`
 
 **Solution:**
+
 - Parse with clamping: `value = Math.min(Math.max(parsedValue, 1), dieSize)`
 - On render, value automatically corrected to valid range
 - Next interaction will persist corrected value
@@ -288,6 +304,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 **Scenario:** User manually edits to `sd6: 0`
 
 **Solution:**
+
 - Clamp to minimum value of 1
 - Rationale: Stat dice represent "having the stat", zero would be invalid
 
@@ -296,6 +313,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 **Scenario:** User manually edits to `sd6: -3`
 
 **Solution:**
+
 - Clamp to minimum value of 1
 - Negative values don't make sense for stat die size
 
@@ -310,6 +328,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 ```
 
 **Solution:**
+
 - Regex allows optional space: `: ?`
 - Parser trims value: `parseInt(value?.trim())`
 - Output always uses single space: `sd6: 3`
@@ -319,6 +338,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 **Scenario:** `sd6,red,blue: 3`
 
 **Solution:**
+
 - Take first color parameter only
 - Ignore subsequent colors
 - Could log warning in debug mode
@@ -328,6 +348,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 **Scenario:** User types `sd100: 50`
 
 **Solution:**
+
 - Regex won't match, renders as regular code
 - User can use regular dice for d100: `d100: 50`
 - Stat dice limited to common RPG sizes
@@ -347,6 +368,7 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 ```
 
 **Solution:**
+
 - Works automatically (same as other inline elements)
 - Test all markdown contexts during development
 
@@ -398,18 +420,22 @@ Str: `sd6: 4` Dex: `sd8: 5` Con: `sd6: 3`
 ### Doesn't Break Existing Elements
 
 **Regular Dice:**
+
 - `d6` still matches dice pattern, not stat die
 - Different prefix (`d` vs `sd`)
 
 **Counters:**
+
 - `5` still matches counter pattern
 - Stat die requires `sd` prefix and colon
 
 **Progress Trackers:**
+
 - `1/5` still matches counter with limit
 - Stat die doesn't use slash separator
 
 **Clocks/Boxes:**
+
 - `clock: 1/5` still matches clock pattern
 - Different prefix and syntax structure
 
@@ -431,6 +457,7 @@ NEW - Stat dice: `sd6: 3` `sd8: 5` `sd10,red: 7`
 ```
 
 Verify:
+
 - All elements render correctly
 - No interference between types
 - Settings toggle affects all
@@ -438,6 +465,7 @@ Verify:
 ## Implementation Checklist
 
 ### Phase 1: Base Implementation
+
 - [ ] Create `src/inline/base/statdie.ts`
   - [ ] Define `STATDIE_REGEX` pattern
   - [ ] Implement `StatDieWidgetBase` class
@@ -449,6 +477,7 @@ Verify:
 - [ ] Export from `src/inline/base/index.ts`
 
 ### Phase 2: Live Preview Integration
+
 - [ ] Create `src/inline/live/statdie.ts`
   - [ ] Implement `StatDieWidget` class extending `WidgetType`
   - [ ] Implement `toDOM()` method
@@ -459,6 +488,7 @@ Verify:
   - [ ] Add to buildMeta tracking
 
 ### Phase 3: Reading Mode Integration
+
 - [ ] Create `src/inline/read/statdie.ts`
   - [ ] Implement `StatDieWidget` class
   - [ ] Implement `toDOM()` method
@@ -469,6 +499,7 @@ Verify:
   - [ ] Add check in post-processor loop
 
 ### Phase 4: Styling
+
 - [ ] Add styles to `src/styles.scss`
   - [ ] `.srt-statdie` container
   - [ ] `.srt-statdie-die` button
@@ -477,6 +508,7 @@ Verify:
   - [ ] Hover states
 
 ### Phase 5: Testing
+
 - [ ] Test Live Preview mode
   - [ ] Basic rendering
   - [ ] Die button rolls correctly
@@ -498,6 +530,7 @@ Verify:
   - [ ] Works alongside other elements
 
 ### Phase 6: Documentation
+
 - [ ] Update README.md
   - [ ] Add Stat Die Tracker section
   - [ ] Include syntax examples
@@ -507,6 +540,7 @@ Verify:
 - [ ] Add inline comments to code
 
 ### Phase 7: Polish (Optional)
+
 - [ ] Implement context menu
 - [ ] Add roll animation (like regular dice)
 - [ ] Add tooltips
@@ -516,6 +550,7 @@ Verify:
 ## Estimated Implementation Size
 
 **Lines of Code:**
+
 - Base widget: ~150 lines
 - Live widget: ~30 lines  
 - Read widget: ~40 lines
@@ -524,10 +559,12 @@ Verify:
 - **Total: ~280 lines** (small, focused change)
 
 **Files Modified/Created:**
+
 - Created: 3 new files
 - Modified: 4 existing files (live/read index, base index, styles)
 
 **Risk Level:** Low
+
 - Self-contained feature
 - No changes to existing widgets
 - Follows established patterns
@@ -540,10 +577,12 @@ Verify:
 **Approach:** Add die button to existing counter widget
 
 **Pros:**
+
 - Reuses existing code
 - Less new code to write
 
 **Cons:**
+
 - Counters have different semantics (arbitrary numbers)
 - Would need to make die size configurable per counter
 - Syntax becomes complex: `5,d6` (ambiguous)
@@ -556,10 +595,12 @@ Verify:
 **Approach:** Add +/- buttons to existing dice widget
 
 **Pros:**
+
 - Reuses dice rendering
 - Familiar die visual
 
 **Cons:**
+
 - Regular dice are for rolling, not tracking state
 - Dice results are transient, stat values are persistent
 - Would complicate dice regex (already complex)
@@ -572,10 +613,12 @@ Verify:
 **Approach:** Combine existing elements: `d6` `5`
 
 **Pros:**
+
 - No new code needed
 - Uses existing elements
 
 **Cons:**
+
 - Requires two separate code blocks
 - No visual connection between die and value
 - Confusing UX (which die goes with which value?)
@@ -588,12 +631,14 @@ Verify:
 **Approach:** Create dedicated stat die widget
 
 **Pros:**
+
 - Clear, unambiguous syntax
 - Appropriate semantics for use case
 - Clean implementation following patterns
 - No compromise on UX
 
 **Cons:**
+
 - Adds one new file type
 
 **Verdict:** ✅ Best solution

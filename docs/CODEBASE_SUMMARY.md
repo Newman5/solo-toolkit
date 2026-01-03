@@ -12,6 +12,7 @@ This document provides a high-level overview of the Solo RPG Toolkit codebase an
 ## What is Solo RPG Toolkit?
 
 An Obsidian plugin that provides tools for solo TTRPG gameplay, including:
+
 - Dice roller with inline dice buttons
 - Card decks (standard and custom)
 - Oracle systems
@@ -21,7 +22,7 @@ An Obsidian plugin that provides tools for solo TTRPG gameplay, including:
 
 ## Repository Structure
 
-```
+```text
 solo-toolkit/
 ├── src/
 │   ├── main.ts                    # Plugin entry point
@@ -53,7 +54,7 @@ The inline elements are the most distinctive feature of this plugin. They transf
 
 ### Three-Layer Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │  Base Layer (src/inline/base/)                      │
 │  - Core logic, parsing, state management            │
@@ -95,6 +96,7 @@ The inline elements are the most distinctive feature of this plugin. They transf
 | **Space** | `` ` ` `` | Adjustable tab stop |
 
 All elements support:
+
 - Colors (red, orange, yellow, green, cyan, blue, purple, pink)
 - Custom sizes (small, large, or pixel values)
 - Alternative separators (comma or pipe)
@@ -102,6 +104,7 @@ All elements support:
 ### Master Toggle
 
 All inline elements are controlled by a single setting:
+
 - `Settings → Inline elements → Enable inline elements`
 - Default: **OFF** (user must opt-in)
 - When disabled, code blocks render as plain code
@@ -229,6 +232,7 @@ npm run dev
 See **[CONTRIBUTING.md](../CONTRIBUTING.md)** for complete step-by-step guide.
 
 **Summary:**
+
 1. Create base widget in `src/inline/base/[name].ts`
 2. Create live widget in `src/inline/live/[name].ts`
 3. Create read widget in `src/inline/read/[name].ts`
@@ -261,23 +265,27 @@ A new inline element combining counters and dice rolling, designed for TTRPG sys
 **Rendering:** `[d6] [-] 3 [+]`
 
 **See:**
+
 - **[STAT_DIE_TRACKER_DESIGN.md](STAT_DIE_TRACKER_DESIGN.md)** for complete specification
 - **[IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md)** for implementation guide
 
 ## Resources
 
 ### Official Documentation
+
 - [Obsidian Plugin Developer Docs](https://docs.obsidian.md/Plugins/Getting+started/Build+a+plugin)
 - [CodeMirror 6 Documentation](https://codemirror.net/docs/)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
 
 ### Repository Files
+
 - `manifest.json` - Plugin metadata (version, author, min Obsidian version)
 - `package.json` - npm dependencies and build scripts
 - `tsconfig.json` - TypeScript configuration
 - `esbuild.config.mjs` - Build configuration
 
 ### Build Tools
+
 - **esbuild** - Fast JavaScript bundler
 - **esbuild-sass-plugin** - SCSS compilation
 - **TypeScript** - Type checking and compilation
@@ -286,25 +294,33 @@ A new inline element combining counters and dice rolling, designed for TTRPG sys
 ## Frequently Asked Questions
 
 ### Q: Why are inline elements disabled by default?
+
 **A:** To avoid surprising users. They opt-in through settings.
 
 ### Q: Can I use inline elements outside code blocks?
+
 **A:** No, they must be in backtick code blocks (`` `like this` ``).
 
 ### Q: Do inline elements work on mobile?
+
 **A:** The plugin claims mobile support (isDesktopOnly: false), but test thoroughly.
 
 ### Q: Can I add custom colors beyond the preset ones?
+
 **A:** Yes, hex colors work: `` `d6,#fb464c: 4` ``
 
 ### Q: How do I prevent accidental edits?
+
 **A:** Use the lock feature for dice: `` `!d6: 4` ``
 
 ### Q: Can I have multiple inline elements on the same line?
-**A:** Yes! Example: `STR: `sd6: 4` DEX: `sd8: 5` CON: `sd6: 3``
+
+**A:** Yes! Example: `STR:`sd6: 4` DEX: `sd8: 5` CON: `sd6: 3``
 
 ### Q: What's the difference between `1/5` and `boxes: 1/5`?
-**A:** 
+
+**A:**
+
 - `` `1/5` `` = Counter with limit, shows "+/- 1 / 5" buttons
 - `` `boxes: 1/5` `` = Progress tracker, shows 5 clickable boxes
 
@@ -312,11 +328,12 @@ A new inline element combining counters and dice rolling, designed for TTRPG sys
 
 - **Issues:** [GitHub Issues](https://github.com/Newman5/solo-toolkit/issues)
 - **Discussions:** Use GitHub Discussions for questions and ideas
-- **Email:** kurowski.dev@gmail.com (original author)
+- **Email:** <kurowski.dev@gmail.com> (original author)
 
 ## Contributing
 
 We welcome contributions! Please:
+
 1. Read **[CONTRIBUTING.md](../CONTRIBUTING.md)**
 2. Fork the repository
 3. Create a feature branch
